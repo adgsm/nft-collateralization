@@ -2,7 +2,6 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "hardhat/console.sol";
 
 contract NFTCollateral {
     struct Collateral {
@@ -22,8 +21,6 @@ contract NFTCollateral {
         require(IERC721(_nftContract).getApproved(_tokenId) == address(this), "Contract is not approved to transfer this NFT");
 
         IERC721(_nftContract).transferFrom(msg.sender, address(this), _tokenId);
-        console.log("from", msg.sender);
-        console.log("to", address(this));
 
         collaterals[collateralCount] = Collateral({
             nftContract: _nftContract,
@@ -46,7 +43,5 @@ contract NFTCollateral {
         collateralCount--;
 
         IERC721(collateral.nftContract).transferFrom(address(this), msg.sender, collateral.tokenId);
-        console.log("from", address(this));
-        console.log("to", msg.sender);
     }
 }
