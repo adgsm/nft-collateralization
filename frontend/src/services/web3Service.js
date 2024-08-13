@@ -8,7 +8,12 @@ if (window.ethereum) {
 } else if (window.web3) {
   web3 = new Web3(window.web3.currentProvider);
 } else {
-  console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  try {
+    const provider = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`
+    web3 = new Web3(new Web3.providers.HttpProvider(provider))
+  } catch (error) {
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  }
 }
 
 export default web3;
