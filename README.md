@@ -1,6 +1,6 @@
 # NFT Collateralization
 
-This project is an extremely simplified dApp that allows users to collateralize and release their NFTs.
+This project is an simplified dApp that allows users to collateralize their NFTs, take and repay loans.
 
 ## Project Structure
 
@@ -36,25 +36,64 @@ This project is an extremely simplified dApp that allows users to collateralize 
     ```
 5. Run tests:
     ```
-    npm test
+    npm run test
     ```
+
+    Expected output:
+
+        > nft-collateralization@1.0.0 test
+        > npx hardhat test
+
+        NFTCollateral
+            ✔ should create a loan successfully
+            ✔ should fail to create a loan if contract has insufficient balance
+            ✔ should allow repayment of the loan and release the NFT
+            ✔ should fail to repay the loan with insufficient funds
+            ✔ should only allow the loan creator to create loans
+            ✔ should not allow repayment if there is no active loan
+
+
+        6 passing (568ms)
+
 6. Deploy contracts:
     ```
-    npm deploy
+    npm run deploy
 
     ```
-7. Approves the collateral contract to manage the specified token ID (1, hardcoded):
+    Expected output:
+
+        > nft-collateralization@1.0.0 deploy
+        > npx hardhat run scripts/deploy.js --network localhost
+
+        NFTSample deployed to: 0x9A676e781A523b5d0C0e43731313A708CB607508
+        NFTCollateral deployed to: 0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1
+
+7. Set environment vcartiables using outputs of the previous command:
     Copy NFT_CONTRACT_ADDRESS and NFT_COLLATERAL_CONTRACT_ADDRESS from the output of the above command run
     ```
-    NFT_CONTRACT_ADDRESS=0x... NFT_COLLATERAL_CONTRACT_ADDRESS=0x... npm run approve
+    export NFT_CONTRACT_ADDRESS={NFTSample address from above output}
+    export NFT_COLLATERAL_CONTRACT_ADDRESS={NFTCollateral address from above output}
+
     ```
-8. Collateralize the specified token ID (1, hardcoded):
+8. Deposit some ETH to the collateral contract (5 ETH, hardcoded):
     ```
-    NFT_CONTRACT_ADDRESS=0x... NFT_COLLATERAL_CONTRACT_ADDRESS=0x... npm run collateralize
+    npm run deposit
     ```
-9. Remove the collateral:
+9. Set approval for the NFT collateral contract to manage the NFT sample contract:
     ```
-    NFT_COLLATERAL_CONTRACT_ADDRESS=0x... npm run release
+    npm run approve
+    ```
+10. Collateralize the specified NFT token ID (1, hardcoded):
+    ```
+    npm run collateralize
+    ```
+11. Create loan for the collateral:
+    ```
+    npm run create-loan
+    ```
+12. Repay loan for the collateral:
+    ```
+    npm run repay-loan
     ```
 
 ## License

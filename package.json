@@ -5,9 +5,11 @@
     "scripts": {
         "test": "npx hardhat test",
         "deploy": "npx hardhat run scripts/deploy.js --network localhost",
+        "deposit": "npx hardhat run scripts/deposit.js --network localhost",
         "approve": "npx hardhat run scripts/approve.js --network localhost",
+        "create-loan": "npx hardhat run scripts/create-loan.js --network localhost",
         "collateralize": "npx hardhat run scripts/collateralize.js --network localhost",
-        "release": "npx hardhat run scripts/release.js --network localhost"
+        "repay-loan": "npx hardhat run scripts/repay-loan.js --network localhost"
     },
     "dependencies": {
         "@nomiclabs/hardhat-waffle": "^2.0.6",
@@ -16,7 +18,7 @@
     },
     "devDependencies": {
         "chai": "^4.3.4",
-        "hardhat": "^2.22.8",
+        "hardhat": "^2.22.9",
         "mocha": "^9.1.2"
     }
 }

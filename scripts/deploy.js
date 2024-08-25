@@ -6,6 +6,9 @@ const hre = require("hardhat");
  * deploy contracts, and log the deployed contracts' addresses.
  */
 async function main() {
+    let owner, addr1;
+    [owner, addr1] = await hre.ethers.getSigners();
+
     // Get the contract factory for NFTSample
     const NFTSample = await hre.ethers.getContractFactory("NFTSample");
     
@@ -20,7 +23,7 @@ async function main() {
 
     // Mint token
     const [deployer] = await hre.ethers.getSigners();
-    let tx = await nftSample.mintCollectionNFT(deployer.address, 1);
+    let tx = await nftSample.connect(owner).mintCollectionNFT(addr1.address, 1);
     await tx.wait(); // wait for this tx to finish to avoid nonce issues
 
     // Get the contract factory for NFTCollateral
@@ -40,7 +43,9 @@ async function main() {
  * Entry point of the program.
  * Handles any uncaught promise rejections by logging the error and setting the process exit code to 1.
  */
-main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-});
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+    });
