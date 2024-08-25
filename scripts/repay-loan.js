@@ -13,7 +13,7 @@ async function main() {
     const nftCollateral = await hre.ethers.getContractAt("NFTCollateral", nftCollateralAddress);
 
     const collateralId = 0; // Assuming the first collateralized NFT
-    const loanAmount = hre.ethers.utils.parseEther("1"); // Amount to repay (same as loan amount)
+    const loanAmount = hre.ethers.utils.parseEther("0.01"); // Amount to repay (same as loan amount)
 
     console.log(`Repaying loan of ${hre.ethers.utils.formatEther(loanAmount)} ETH for collateral ID ${collateralId}...`);
 

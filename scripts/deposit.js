@@ -13,7 +13,7 @@ async function main() {
     const nftCollateralAddress = process.env.NFT_COLLATERAL_CONTRACT_ADDRESS;
     const nftCollateral = await hre.ethers.getContractAt("NFTCollateral", nftCollateralAddress);
 
-    const depositAmount = hre.ethers.utils.parseEther("5"); // Deposit 5 ETH
+    const depositAmount = hre.ethers.utils.parseEther("0.01"); // Deposit 0.01 ETH
 
     console.log(`Depositing ${hre.ethers.utils.formatEther(depositAmount)} ETH to the contract...`);
 

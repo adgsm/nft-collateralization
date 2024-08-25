@@ -22,18 +22,22 @@ This project is an simplified dApp that allows users to collateralize their NFTs
    git clone https://github.com/adgsm/nft-collateralization.git
    cd nft-collateralization
    ```
+
 2. Install dependencies:
     ```
     npm install
     ```
+
 3. Start hardhat node:
     ```
     npx hardhat node
     ```
+
 4. Compile the contracts:
     ```
     npx hardhat compile
     ```
+
 5. Run tests:
     ```
     npm run test
@@ -56,8 +60,15 @@ This project is an simplified dApp that allows users to collateralize their NFTs
         6 passing (568ms)
 
 6. Deploy contracts:
+
+    Dev environment (localhost)
     ```
-    npm run deploy
+    npm run deploy:dev
+
+    ```
+    Test environment (sepolia, linea-sepolia)
+    ```
+    npm run deploy:test
 
     ```
     Expected output:
@@ -75,25 +86,73 @@ This project is an simplified dApp that allows users to collateralize their NFTs
     export NFT_COLLATERAL_CONTRACT_ADDRESS={NFTCollateral address from above output}
 
     ```
-8. Deposit some ETH to the collateral contract (5 ETH, hardcoded):
+
+8. Create ```.env``` file in project root:
+
     ```
-    npm run deposit
+    cp .env.example .env
+    nano .env
     ```
-9. Set approval for the NFT collateral contract to manage the NFT sample contract:
+    Set your INFURA_PROJECT_ID, PRIVATE_KEY_OWNER, and PRIVATE_KEY_ADDR1
     ```
-    npm run approve
+    INFURA_PROJECT_ID=
+    PRIVATE_KEY_OWNER=
+    PRIVATE_KEY_ADDR1=
     ```
-10. Collateralize the specified NFT token ID (1, hardcoded):
+
+9. Deposit some ETH to the collateral contract (0.01 ETH, hardcoded):
+
+    Dev environment (localhost)
     ```
-    npm run collateralize
+    npm run deposit:dev
     ```
-11. Create loan for the collateral:
+    Test environment (sepolia, linea-sepolia)
     ```
-    npm run create-loan
+    npm run deposit:test
     ```
-12. Repay loan for the collateral:
+
+10. Set approval for the NFT collateral contract to manage the NFT sample contract:
+
+    Dev environment (localhost)
     ```
-    npm run repay-loan
+    npm run approve:dev
+    ```
+    Test environment (sepolia, linea-sepolia)
+    ```
+    npm run approve:test
+    ```
+
+11. Collateralize the specified NFT token ID (1, hardcoded):
+
+    Dev environment (localhost)
+    ```
+    npm run collateralize:dev
+    ```
+    Test environment (sepolia, linea-sepolia)
+    ```
+    npm run collateralize:test
+    ```
+
+12. Create loan for the collateral:
+
+    Dev environment (localhost)
+    ```
+    npm run create-loan:dev
+    ```
+    Test environment (sepolia, linea-sepolia)
+    ```
+    npm run create-loan:test
+    ```
+
+13. Repay loan for the collateral:
+
+    Dev environment (localhost)
+    ```
+    npm run repay-loan:dev
+    ```
+    Test environment (sepolia, linea-sepolia)
+    ```
+    npm run repay-loan:test
     ```
 
 ## License

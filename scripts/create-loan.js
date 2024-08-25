@@ -24,7 +24,7 @@ async function main() {
 
     // Define the collateral ID and loan amount
     const collateralId = 0; // Assuming the first collateralized NFT
-    const loanAmount = hre.ethers.utils.parseEther("1"); // Loan amount of 1 ETH
+    const loanAmount = hre.ethers.utils.parseEther("0.01"); // Loan amount of 0.01 ETH
 
     // Log the loan creation details
     console.log(`Creating a loan of ${hre.ethers.utils.formatEther(loanAmount)} ETH for collateral ID ${collateralId}...`);

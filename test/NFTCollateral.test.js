@@ -31,12 +31,12 @@ describe("NFTCollateral", function () {
         collateralId = 0; // The first collateralized NFT will have ID 0
 
         // Deposit Ether into the contract to enable loan creation
-        const depositAmount = ethers.utils.parseEther("5"); // Deposit 5 ETH
+        const depositAmount = ethers.utils.parseEther("0.01"); // Deposit 0.01 ETH
         await nftCollateral.connect(owner).deposit({ value: depositAmount });
     });
 
     it("should create a loan successfully", async function () {
-        const loanAmount = ethers.utils.parseEther("1"); // 1 ETH loan amount
+        const loanAmount = ethers.utils.parseEther("0.01"); // 0.01 ETH loan amount
 
         // Check initial balance of addr1
         const initialBalance = await ethers.provider.getBalance(addr1.address);
@@ -55,7 +55,7 @@ describe("NFTCollateral", function () {
     });
 
     it("should fail to create a loan if contract has insufficient balance", async function () {
-        const loanAmount = ethers.utils.parseEther("10"); // Attempting to loan more than available in contract
+        const loanAmount = ethers.utils.parseEther("1"); // Attempting to loan more than available in contract
 
         await expect(
             nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount)
@@ -63,7 +63,7 @@ describe("NFTCollateral", function () {
     });
 
     it("should allow repayment of the loan and release the NFT", async function () {
-        const loanAmount = ethers.utils.parseEther("1");
+        const loanAmount = ethers.utils.parseEther("0.01");
 
         // Create the loan
         await nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount);
@@ -81,14 +81,14 @@ describe("NFTCollateral", function () {
     });
 
     it("should fail to repay the loan with insufficient funds", async function () {
-        const loanAmount = ethers.utils.parseEther("1");
+        const loanAmount = ethers.utils.parseEther("0.01");
 
         // Create the loan
         await nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount);
 
         // Try to repay with less than the loan amount
         await expect(
-            nftCollateral.connect(addr1).repayLoan(collateralId, { value: ethers.utils.parseEther("0.5") })
+            nftCollateral.connect(addr1).repayLoan(collateralId, { value: ethers.utils.parseEther("0.005") })
         ).to.be.revertedWith("Insufficient repayment amount");
 
         // Check that the loan is still active
@@ -97,7 +97,7 @@ describe("NFTCollateral", function () {
     });
 
     it("should only allow the loan creator to create loans", async function () {
-        const loanAmount = ethers.utils.parseEther("1");
+        const loanAmount = ethers.utils.parseEther("0.01");
 
         // Try to create a loan from addr1 (non-owner), which should fail
         await expect(
