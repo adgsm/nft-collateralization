@@ -59,7 +59,20 @@ This project is an simplified dApp that allows users to collateralize their NFTs
 
         6 passing (568ms)
 
-6. Deploy contracts:
+6. Create ```.env``` file in project root:
+
+    ```
+    cp .env.example .env
+    nano .env
+    ```
+    Set your INFURA_PROJECT_ID, PRIVATE_KEY_OWNER, and PRIVATE_KEY_ADDR1
+    ```
+    INFURA_PROJECT_ID=
+    PRIVATE_KEY_OWNER=
+    PRIVATE_KEY_ADDR1=
+    ```
+
+7. Deploy contracts:
 
     Dev environment (localhost)
     ```
@@ -79,25 +92,12 @@ This project is an simplified dApp that allows users to collateralize their NFTs
         NFTSample deployed to: 0x9A676e781A523b5d0C0e43731313A708CB607508
         NFTCollateral deployed to: 0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1
 
-7. Set environment vcartiables using outputs of the previous command:
+8. Set environment vcartiables using outputs of the previous command:
     Copy NFT_CONTRACT_ADDRESS and NFT_COLLATERAL_CONTRACT_ADDRESS from the output of the above command run
     ```
     export NFT_CONTRACT_ADDRESS={NFTSample address from above output}
     export NFT_COLLATERAL_CONTRACT_ADDRESS={NFTCollateral address from above output}
 
-    ```
-
-8. Create ```.env``` file in project root:
-
-    ```
-    cp .env.example .env
-    nano .env
-    ```
-    Set your INFURA_PROJECT_ID, PRIVATE_KEY_OWNER, and PRIVATE_KEY_ADDR1
-    ```
-    INFURA_PROJECT_ID=
-    PRIVATE_KEY_OWNER=
-    PRIVATE_KEY_ADDR1=
     ```
 
 9. Deposit some ETH to the collateral contract (0.01 ETH, hardcoded):
