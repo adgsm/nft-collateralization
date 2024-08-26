@@ -29,7 +29,7 @@ contract NFTCollateral is Ownable {
     function collateralizeNFT(address _nftContract, uint256 _tokenId) external {
         IERC721 nft = IERC721(_nftContract);
         require(nft.ownerOf(_tokenId) == msg.sender, "You do not own this NFT");
-        require(nft.isApprovedForAll(msg.sender, address(this)), "Contract not approved to transfer NFT");
+        require(nft.getApproved(_tokenId) == address(this), "Contract not approved to transfer provided NFT token");
 
         collaterals[collateralCounter] = Collateral({
             nftContract: _nftContract,

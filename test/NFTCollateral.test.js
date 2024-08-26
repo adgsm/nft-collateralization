@@ -5,7 +5,7 @@ describe("NFTCollateral", function () {
     let nftCollateral;
     let nftSample;
     let owner, addr1;
-    let collateralId;
+    let collateralId, tokenId;
 
     beforeEach(async function () {
         [owner, addr1] = await ethers.getSigners();
@@ -16,7 +16,8 @@ describe("NFTCollateral", function () {
         await nftSample.deployed();
 
         // Mint NFT token 0 to addr1
-        await nftSample.connect(owner).mintCollectionNFT(addr1.address, 0);
+        tokenId = 0;
+        await nftSample.connect(owner).mintCollectionNFT(addr1.address, tokenId);
         expect(await nftSample.ownerOf(0)).to.equal(addr1.address);
 
         // Deploy the NFTCollateral contract
@@ -25,8 +26,8 @@ describe("NFTCollateral", function () {
         await nftCollateral.deployed();
 
         // Approve and collateralize the NFT
-        await nftSample.connect(addr1).setApprovalForAll(nftCollateral.address, true);
-        await nftCollateral.connect(addr1).collateralizeNFT(nftSample.address, 0);
+        await nftSample.connect(addr1).approve(nftCollateral.address, tokenId);
+        await nftCollateral.connect(addr1).collateralizeNFT(nftSample.address, tokenId);
 
         collateralId = 0; // The first collateralized NFT will have ID 0
 
@@ -42,7 +43,7 @@ describe("NFTCollateral", function () {
         const initialBalance = await ethers.provider.getBalance(addr1.address);
 
         // Create the loan
-        await nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount);
+        await nftCollateral.connect(owner).createLoan(nftSample.address, tokenId, collateralId, loanAmount);
 
         // Check that the loan is active
         const collateral = await nftCollateral.collaterals(collateralId);
@@ -58,7 +59,7 @@ describe("NFTCollateral", function () {
         const loanAmount = ethers.utils.parseEther("1"); // Attempting to loan more than available in contract
 
         await expect(
-            nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount)
+            nftCollateral.connect(owner).createLoan(nftSample.address, tokenId, collateralId, loanAmount)
         ).to.be.revertedWith("Insufficient contract balance to fund the loan");
     });
 
@@ -66,7 +67,7 @@ describe("NFTCollateral", function () {
         const loanAmount = ethers.utils.parseEther("0.01");
 
         // Create the loan
-        await nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount);
+        await nftCollateral.connect(owner).createLoan(nftSample.address, tokenId, collateralId, loanAmount);
 
         // Repay the loan
         await nftCollateral.connect(addr1).repayLoan(collateralId, { value: loanAmount });
@@ -84,7 +85,7 @@ describe("NFTCollateral", function () {
         const loanAmount = ethers.utils.parseEther("0.01");
 
         // Create the loan
-        await nftCollateral.connect(owner).createLoan(nftSample.address, 0, collateralId, loanAmount);
+        await nftCollateral.connect(owner).createLoan(nftSample.address, tokenId, collateralId, loanAmount);
 
         // Try to repay with less than the loan amount
         await expect(
@@ -101,7 +102,7 @@ describe("NFTCollateral", function () {
 
         // Try to create a loan from addr1 (non-owner), which should fail
         await expect(
-            nftCollateral.connect(addr1).createLoan(nftSample.address, 0, collateralId, loanAmount)
+            nftCollateral.connect(addr1).createLoan(nftSample.address, tokenId, collateralId, loanAmount)
         ).to.be.revertedWith("Ownable: caller is not the owner");
     });
 

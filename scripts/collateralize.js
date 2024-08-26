@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 /**
- * Function to collateralize an NFT. It allows loan creation.
+ * Function to collateralize an NFT token. It allows loan creation.
  * This function retrieves the NFT contract addresses from environment variables,
  * gets the NFTCollateral contract instance, and calls the collateralizeNFT function.
  */

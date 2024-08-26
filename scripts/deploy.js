@@ -23,7 +23,16 @@ async function main() {
 
     // Mint token
     const [deployer] = await hre.ethers.getSigners();
-    let tx = await nftSample.connect(owner).mintCollectionNFT(addr1.address, 1);
+    let tokenId = 0;
+    let tx = await nftSample.connect(owner).mintCollectionNFT(addr1.address, tokenId);
+    await tx.wait(); // wait for this tx to finish to avoid nonce issues
+
+    tokenId = 1;
+    tx = await nftSample.connect(owner).mintCollectionNFT(addr1.address, tokenId);
+    await tx.wait(); // wait for this tx to finish to avoid nonce issues
+
+    tokenId = 2;
+    tx = await nftSample.connect(owner).mintCollectionNFT(addr1.address, tokenId);
     await tx.wait(); // wait for this tx to finish to avoid nonce issues
 
     // Get the contract factory for NFTCollateral

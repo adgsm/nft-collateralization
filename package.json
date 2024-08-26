@@ -15,7 +15,13 @@
         "approve:test": "npx hardhat run scripts/approve.js --network sepolia",
         "create-loan:test": "npx hardhat run scripts/create-loan.js --network sepolia",
         "collateralize:test": "npx hardhat run scripts/collateralize.js --network sepolia",
-        "repay-loan:test": "npx hardhat run scripts/repay-loan.js --network sepolia"
+        "repay-loan:test": "npx hardhat run scripts/repay-loan.js --network sepolia",
+        "deploy:test-linea": "npx hardhat run scripts/deploy.js --network linea-sepolia",
+        "deposit:test-linea": "npx hardhat run scripts/deposit.js --network linea-sepolia",
+        "approve:test-linea": "npx hardhat run scripts/approve.js --network linea-sepolia",
+        "create-loan:test-linea": "npx hardhat run scripts/create-loan.js --network linea-sepolia",
+        "collateralize:test-linea": "npx hardhat run scripts/collateralize.js --network linea-sepolia",
+        "repay-loan:test-linea": "npx hardhat run scripts/repay-loan.js --network linea-sepolia"
     },
     "dependencies": {
         "@nomiclabs/hardhat-waffle": "^2.0.6",

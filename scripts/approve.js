@@ -17,9 +17,11 @@ async function main() {
     const nftSample = await hre.ethers.getContractAt("NFTSample", nftSampleAddress);
     const nftCollateral = await hre.ethers.getContractAt("NFTCollateral", nftCollateralAddress);
 
-    await nftSample.connect(addr1).setApprovalForAll(nftCollateral.address, true);
+//    await nftSample.connect(addr1).setApprovalForAll(nftCollateral.address, true);
+        const tokenId = 1; // Assuming token Id 1 of collateralized NFT
+        await nftSample.connect(addr1).approve(nftCollateral.address, tokenId);
 
-    console.log(`Approved contract ${nftCollateral.address} to manage ${nftSample.address}`);
+    console.log(`Approved contract ${nftCollateral.address} to manage ${nftSample.address} token Id ${tokenId}`);
 }
 
 /**
