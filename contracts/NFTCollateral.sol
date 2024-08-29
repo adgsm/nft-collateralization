@@ -67,6 +67,7 @@ contract NFTCollateral is Ownable {
         Collateral storage collateral = collaterals[_collateralId];
         require(collateral.isLoanActive, "No active loan on this collateral");
         require(msg.value >= collateral.loanAmount, "Insufficient repayment amount");
+        require(msg.sender == collateral.owner, "You didn't own this NFT");
 
         collateral.isLoanActive = false;
         collateral.loanAmount = 0;

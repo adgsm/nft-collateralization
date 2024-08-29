@@ -2,6 +2,7 @@
 **/.env
 **/cache/
 **/artifacts/
+**/_docs/
 
 **/.DS_Store
 **/node_modules

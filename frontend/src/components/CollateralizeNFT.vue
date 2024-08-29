@@ -114,9 +114,9 @@
           <td>No.</td>
           <td>NFT Address</td>
           <td>NFT Token</td>
-          <td>Owner</td>
+          <td>Collateral Owner</td>
           <td>Amount</td>
-          <td>Active</td>
+          <td>Loan Active</td>
           <td>&nbsp;</td>
         </tr>
         <tr v-for="(collateral, collateralIndex) in collaterals" :key="collateralIndex">
@@ -270,6 +270,7 @@
   }
   table > tr > td {
     padding: .25rem;
+    border: 1px solid #ddd;
   }
   .field-title {
     min-width: 25rem;
